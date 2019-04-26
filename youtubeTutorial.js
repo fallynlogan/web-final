@@ -1,10 +1,26 @@
 var WIDTH = 7;
 var grid = [];
+var score;
 
 function setup() {
   createCanvas(540, 720);
   initGrid();
   frameRate(5);
+  
+  score = 0;
+}
+
+function keyPressed(){
+  if(keyCode === 32){
+    var y = grid.length - 1;
+    var count = grid[y].stop(grid[y-1]);
+    
+    // if(count < 1){
+    //  endGame();
+    // }
+    
+    grid.push(new Row(++y,count));
+  }
 }
 
 function Row(y,count){
@@ -25,7 +41,7 @@ Row.prototype.update = function (){
         if(x < WIDTH - 1){
           
           if(this.tiles[x+1]){
-            this.xV *= -1;
+            this.reverse();
           }
           else{
             this.tiles[x] = false;
@@ -33,7 +49,7 @@ Row.prototype.update = function (){
           }
         }
         else{
-          this.xV *= -1;
+          this.reverse();
         }
       }
     } 
@@ -46,7 +62,7 @@ Row.prototype.update = function (){
           
           
           if(this.tiles[x-1]){
-            this.xV *= -1;
+            this.reverse();
           }
           else{
             this.tiles[x] = false;
@@ -54,7 +70,7 @@ Row.prototype.update = function (){
           }
         }
         else{
-          this.xV *= -1;
+          this.reverse();
         }
       }
     }
@@ -69,6 +85,34 @@ Row.prototype.draw = function (size){
     }
   }
 };
+
+Row.prototype.stop = function(row){
+  //if row exists 
+  if(row){
+    var tC = 0;
+    for(var x = 0; x < WIDTH; x++){
+      //its on top & there is a tile below it
+      if(this.tiles[x] && row.tiles[x]){
+        this.tiles[x] = true;
+        tC++;
+      }else{
+        this.tiles[x] = false;
+      }
+  }
+    this.dynamic = false;
+    return tC;
+}
+  else{
+    this.dynamic = false;
+    return this.count;
+  }
+}
+
+Row.prototype.reverse = function(){
+  this.xV *= -1;
+  this.update();
+  this.update();
+}
 
 Row.prototype.initRow = function(count){
   for(var x = 0; x < WIDTH; x++){
@@ -99,7 +143,9 @@ function handleGrid(){
   }
 }
 
-
+// function endGame(){
+  
+// }
 
 function initGrid(){
   grid=[];
