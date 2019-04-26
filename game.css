@@ -1,0 +1,48 @@
+body {
+  background-color: #FF68E5;
+}
+
+#heading{
+	text-align: center;
+	font-family: 'VT323', monospace;
+	color: white;
+	font-size: 80px;
+}
+
+#button{
+	text-align: center;
+	font-family: 'VT323', monospace;
+	border: none;
+	background-color: Transparent;
+	background-image: none;
+    border: none;
+    cursor:pointer;
+    outline:none;
+    font-size: 30px;
+    color: white;
+
+}
+
+#instructions{
+	text-align: center;
+	font-family: 'VT323', monospace;
+	color: white;
+}
+
+#canvas{
+	border: 3px solid #FFF65C;
+}
+
+footer{
+	text-align: center;
+	font-family: 'VT323', monospace;
+	color: white;
+}
+
+h2{
+	font-size: 30px;
+}
+
+p{
+	text-align: center;
+}
